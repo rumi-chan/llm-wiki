@@ -1,0 +1,48 @@
+# Checks the docs/wiki/ pages on every pull request (llm-wiki team mode).
+# No AI involved: runs tools/wiki/wiki.mjs. Warnings never fail the job.
+name: wiki
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Check wiki
+        env:
+          BASE_REF: ${{ github.base_ref }}
+        run: node tools/wiki/wiki.mjs check --base "origin/$BASE_REF" --format github --report wiki-report.md
+
+      # Posts one comment, updated on each push. Skipped for PRs from forks (read-only token).
+      - name: Comment on the PR
+        if: always() && github.event.pull_request.head.repo.full_name == github.repository
+        continue-on-error: true
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            if (!fs.existsSync('wiki-report.md')) return;
+            const body = fs.readFileSync('wiki-report.md', 'utf8');
+            const marker = '<!-- llm-wiki-check -->';
+            const { owner, repo } = context.repo;
+            const issue_number = context.issue.number;
+            const comments = await github.paginate(github.rest.issues.listComments, { owner, repo, issue_number, per_page: 100 });
+            const previous = comments.find(c => c.user && c.user.type === 'Bot' && c.body && c.body.includes(marker));
+            if (previous) {
+              await github.rest.issues.updateComment({ owner, repo, comment_id: previous.id, body });
+            } else if (!body.includes('No wiki issues')) {
+              await github.rest.issues.createComment({ owner, repo, issue_number, body });
+            }

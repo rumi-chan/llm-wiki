@@ -1,0 +1,8 @@
+# Keep scripts and docs LF on Windows checkouts (CRLF breaks bash scripts).
+* text=auto
+*.sh text eol=lf
+*.md text eol=lf
+*.mjs text eol=lf
+*.json text eol=lf
+*.yml text eol=lf
+*.ps1 text eol=crlf

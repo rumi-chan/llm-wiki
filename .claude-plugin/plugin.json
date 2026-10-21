@@ -1,0 +1,19 @@
+{
+  "name": "llm-wiki",
+  "displayName": "LLM Wiki",
+  "description": "Per-project wikis maintained by your coding agent (Karpathy's LLM Wiki pattern): a private wiki hidden from the team repo, or a shared team wiki with CI checks.",
+  "author": {
+    "name": "rumi",
+    "url": "https://github.com/rumi-chan"
+  },
+  "homepage": "https://github.com/rumi-chan/llm-wiki",
+  "repository": "https://github.com/rumi-chan/llm-wiki",
+  "license": "MIT",
+  "keywords": [
+    "wiki",
+    "documentation",
+    "knowledge-base",
+    "llm-wiki",
+    "codex"
+  ]
+}

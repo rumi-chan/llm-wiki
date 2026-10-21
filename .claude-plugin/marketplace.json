@@ -1,0 +1,15 @@
+{
+  "name": "llm-wiki",
+  "description": "LLM Wiki skills for Claude Code and Codex",
+  "owner": {
+    "name": "rumi",
+    "url": "https://github.com/rumi-chan"
+  },
+  "plugins": [
+    {
+      "name": "llm-wiki",
+      "source": "./",
+      "description": "Per-project wikis maintained by your coding agent: personal (hidden) or team (shared, with CI checks)."
+    }
+  ]
+}

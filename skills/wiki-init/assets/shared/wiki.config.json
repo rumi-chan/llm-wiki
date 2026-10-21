@@ -1,0 +1,5 @@
+{
+  "types": ["overview", "module", "concept", "decision"],
+  "statuses": ["draft", "verified", "stale"],
+  "required": ["title", "type", "status", "summary", "sources"]
+}

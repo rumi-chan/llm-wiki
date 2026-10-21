@@ -1,0 +1,6 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "llm-wiki",
+  "version": "0.1.0",
+  "description": "Per-project wikis maintained by your coding agent (Karpathy's LLM Wiki pattern): a private wiki hidden from the team repo, or a shared team wiki with CI checks."
+}
